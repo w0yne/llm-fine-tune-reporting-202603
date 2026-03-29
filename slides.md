@@ -28,19 +28,25 @@ mdc: true
   ]"
 />
 
-<div class="grid grid-cols-[1fr_1fr] gap-4 mt-1">
-<div class="text-xs">
+<div class="grid grid-cols-[3fr_2fr] gap-4 mt-1">
+<div class="text-xs leading-relaxed">
 
-**一期** 完成 Qwen 8B SFT+GRPO 微调，验证了自有模型替代商业 API 的可行性与成本优势。但业务使用中发现**翻译有明显机器痕迹** — 专词机械复制、语义重复、句式不自然
+**一期完成情况：** 完成 Qwen 8B SFT+GRPO 微调，验证了自有模型替代商业 API 的可行性与成本优势。但业务使用中发现**翻译有明显机器痕迹** — 专词机械复制、语义重复、句式不自然
 
 **根因：** 传统指标（BLEU/BERT score）只衡量词汇匹配，不衡量自然度；小样本下过拟合
 
-**技术选型：** 评分模型 Nova 2 Lite（vs Claude 4.5 Sonnet 无差异，成本更低）| 训练 Qwen 8B / GRPO / 2×g6e.48xlarge ~14h
+**优化方案 — Teacher-Student + LLM as Judge：**
+- **大模型（Teacher）** 作为评委，按精细化标准给翻译打分
+- **小模型（Student）** 根据评分反馈迭代学习
+- **评分标准自动生成：** 生成器 vs 评分器对抗迭代，自动发现最具区分度的评分提示词（避免人工编写不够精细）
+- **评分模型：** Nova 2 Lite（vs Claude 4.5 Sonnet 效果无差异，成本更低）
+- **训练配置：** Qwen 8B / GRPO / 2×g6e.48xlarge / ~14h
+- AWS 团队主导方案设计与训练平台搭建
 
 </div>
-<div class="flex flex-col items-center">
+<div class="flex flex-col items-center justify-center">
 
-<div class="text-sm font-semibold mb-0">Teacher-Student + LLM as Judge</div>
+<div class="text-xs font-semibold mb-0">迭代优化闭环</div>
 
 <Flywheel
   :items="[
@@ -49,11 +55,11 @@ mdc: true
     { label: '优化器\n调整提示词', color: '#d97706' },
     { label: '小模型\n迭代学习', color: '#7c3aed' }
   ]"
-  :size="240"
+  :size="220"
   centerIcon="⟳"
 />
 
-<div class="text-xs text-gray-500 text-center">生成器与评分器对抗迭代，自动发现最优评分标准</div>
+<div class="text-xs text-gray-500 text-center">生成器与评分器对抗迭代<br/>自动发现最优评分标准</div>
 
 </div>
 </div>
