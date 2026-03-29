@@ -28,28 +28,19 @@ mdc: true
   ]"
 />
 
-<div class="grid grid-cols-[1fr_1fr] gap-4 mt-2">
-<div class="text-sm">
+<div class="grid grid-cols-[1fr_1fr] gap-4 mt-1">
+<div class="text-xs">
 
-### 一期完成情况
+**一期** 完成 Qwen 8B SFT+GRPO 微调，验证了自有模型替代商业 API 的可行性与成本优势。但业务使用中发现**翻译有明显机器痕迹** — 专词机械复制、语义重复、句式不自然
 
-基于 Qwen 8B 完成 SFT + GRPO 微调，翻译准确度接近 GPT-4o，验证了自有模型替代商业 API 的技术可行性与成本优势
+**根因：** 传统指标（BLEU/BERT score）只衡量词汇匹配，不衡量自然度；小样本下过拟合
 
-### 业务反馈
-
-准确度达标，但**翻译有明显机器痕迹** — 专词机械复制、语义重复、句式不自然
-
-**根因：** 传统指标（BLEU / BERT score）衡量"用了什么词"而非"是否自然"；小样本下过拟合
-
-### 关键技术选型
-
-- **评分模型：** Nova 2 Lite（vs Claude 4.5 Sonnet 效果无差异，成本更低）
-- **训练：** Qwen 8B / GRPO / 2×g6e.48xlarge / ~14h
+**技术选型：** 评分模型 Nova 2 Lite（vs Claude 4.5 Sonnet 无差异，成本更低）| 训练 Qwen 8B / GRPO / 2×g6e.48xlarge ~14h
 
 </div>
 <div class="flex flex-col items-center">
 
-<div class="text-sm font-semibold mb-1">Teacher-Student + LLM as Judge</div>
+<div class="text-sm font-semibold mb-0">Teacher-Student + LLM as Judge</div>
 
 <Flywheel
   :items="[
@@ -58,11 +49,11 @@ mdc: true
     { label: '优化器\n调整提示词', color: '#d97706' },
     { label: '小模型\n迭代学习', color: '#7c3aed' }
   ]"
-  :size="260"
+  :size="240"
   centerIcon="⟳"
 />
 
-<div class="text-xs text-gray-500 mt-1 text-center">生成器与评分器对抗迭代<br/>自动发现最优评分标准</div>
+<div class="text-xs text-gray-500 text-center">生成器与评分器对抗迭代，自动发现最优评分标准</div>
 
 </div>
 </div>
@@ -105,9 +96,9 @@ mdc: true
 ### 下一步
 
 <CardGrid :columns="1">
-  <SummaryCard number="1" title="业务验证" description="与业务部门联合评估优化结果，确认实际翻译质量提升" color="#0284c7" />
-  <SummaryCard number="2" title="模型上线" description="LiteLLM 代理联合测试 + 压力测试，完成生产部署" color="#7c3aed" />
-  <SummaryCard number="3" title="持续优化" description="评估更低成本评分模型；探索 14B 模型；扩展更多场景" color="#64748b" />
+  <SummaryCard number="1" title="业务验证" description="与业务部门联合评估，确认翻译质量提升" color="#0284c7" />
+  <SummaryCard number="2" title="模型上线" description="LiteLLM 代理联合测试 + 压力测试" color="#7c3aed" />
+  <SummaryCard number="3" title="持续优化" description="更低成本评分模型；14B 模型；更多场景" color="#64748b" />
 </CardGrid>
 
 </div>
