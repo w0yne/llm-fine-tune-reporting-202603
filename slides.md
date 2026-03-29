@@ -73,7 +73,11 @@ mdc: true
 
 ### 优化效果
 
-小规模测试集（200 条）显示翻译质量**显著提升**。业务部门标记的 **56 个翻译问题**，优化后解决 **51 个（91.1%）**：
+小规模测试集（200 条）显示翻译质量**显著提升**：
+
+<div class="bg-blue-50 rounded-lg px-3 py-2 my-2 text-sm font-semibold text-blue-700">
+业务部门标记的 56 个翻译问题，优化后解决 51 个（91.1%）
+</div>
 
 <TChart
   leftTitle="优化前"
