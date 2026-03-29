@@ -15,7 +15,7 @@ const props = defineProps({
 // Compute each item's position along the ring using equal angular spacing
 const itemsWithPosition = computed(() => {
   const n = props.items.length
-  const radius = (props.size - 50) / 2
+  const radius = (props.size - 80) / 2
   const center = props.size / 2
 
   return props.items.map((item, i) => {
@@ -43,8 +43,8 @@ const itemsWithPosition = computed(() => {
       <div
         class="ring"
         :style="{
-          width: `${size - 50}px`,
-          height: `${size - 50}px`,
+          width: `${size - 70}px`,
+          height: `${size - 70}px`,
           borderColor: ringColor
         }"
       ></div>
@@ -70,7 +70,7 @@ const itemsWithPosition = computed(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 320px;
+  height: auto;
 }
 
 .wheel-container {
