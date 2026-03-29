@@ -88,42 +88,27 @@ mdc: true
 
 ---
 
-# 后续计划 — 时间线
+# 后续计划
 
-<SlideHeading subtitle="从验证到生产到扩展" />
+<SlideHeading subtitle="从结果验证到生产部署" />
 
 <CardGrid :columns="3">
   <SummaryCard
     number="1"
-    title="近期（2 周内）"
+    title="近期"
     description="与业务部门评估训练结果，确认数值提升"
     color="#0284c7"
   />
   <SummaryCard
     number="2"
-    title="中期（1 个月内）"
-    description="评估 Qwen 3.5 替代 Nova 降低评分成本；模型部署至 LiteLLM 代理 + 压力测试"
+    title="中期"
+    description="模型部署至 LiteLLM 代理 + 压力测试；评估更低成本的评分模型"
     color="#7c3aed"
   />
   <SummaryCard
     number="3"
-    title="CDP 后续"
-    description="专词映射灵活性优化；14B 模型效果与成本评估；扩展到其他业务场景"
+    title="长期"
+    description="专词映射优化；更大参数模型评估；扩展到其他业务场景"
     color="#64748b"
   />
 </CardGrid>
-
----
-
-# 后续计划 — 详细分工
-
-<SlideHeading subtitle="责任矩阵与时间节点" />
-
-| 事项 | 负责方 | 时间 |
-|---|---|---|
-| 与业务部门评估当前训练结果，确认数值提升 | TAM + 善彪 | 2 周内 |
-| 考虑 Qwen 3.5 替代 Nova 降低评分成本 | 善彪 | 1 月内 |
-| 模型部署至代理 + 压力测试 | TAM + 善彪 | 评估完成后 |
-| LiteLLM 模型代理联合测试 | TAM + 客户 | 部署完成后 |
-| 专词映射灵活性优化 | 待定 | CDP 后 |
-| 14B 模型效果与成本评估 | 待定 | CDP 后 |
