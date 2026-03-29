@@ -28,27 +28,38 @@ mdc: true
   ]"
 />
 
-<div class="grid grid-cols-2 gap-6 mt-2 text-sm">
-<div>
+<div class="grid grid-cols-[1fr_1fr] gap-4 mt-2">
+<div class="text-sm">
 
 ### 一期发现的问题
 
 一期 Qwen 8B 微调后**准确度接近 GPT-4o**，但业务实际使用发现**翻译有明显机器痕迹**：专词机械复制（如 *interproximal space allocation*）、语义重复、句式不自然
 
-**根因：** 传统指标（BLEU / BERT score）衡量"用了什么词"而非"是否自然"；小样本下过拟合 — 训练集分数上升但验证集不变
+**根因：** 传统指标（BLEU / BERT score）衡量"用了什么词"而非"是否自然"；小样本下过拟合
+
+### 技术方案要点
+
+- **评分模型：** Nova 2 Lite（vs Claude 4.5 Sonnet 效果无差异，成本更低）
+- **训练配置：** Qwen 8B / GRPO / 2×g6e.48xlarge / ~14h
+- AWS 团队主导方案设计与训练平台搭建
 
 </div>
-<div>
+<div class="flex flex-col items-center">
 
-### 二期优化方案
+<div class="text-sm font-semibold mb-1">Teacher-Student + LLM as Judge</div>
 
-采用 **Teacher-Student + LLM as Judge** 架构：
-- **大模型（Teacher）** 作为评委，按精细化标准给翻译打分
-- **小模型（Student）** 根据评分反馈迭代学习
-- **评分标准自动生成：** 生成器 vs 评分器对抗迭代，自动发现最具区分度的评分提示词
-- **评分模型：** Nova 2 Lite（vs Claude 4.5 Sonnet 效果无差异，成本更低）
-- **训练：** Qwen 8B / GRPO / 2×g6e.48xlarge / ~14h
-- AWS 团队完成方案设计 + 训练平台搭建（含 us-west-2 → us-east-2 迁移）
+<Flywheel
+  :items="[
+    { label: '生成器\n生成翻译', color: '#0284c7' },
+    { label: '评分器\nLLM 评分', color: '#16a34a' },
+    { label: '优化器\n调整提示词', color: '#d97706' },
+    { label: '小模型\n迭代学习', color: '#7c3aed' }
+  ]"
+  :size="260"
+  centerIcon="⟳"
+/>
+
+<div class="text-xs text-gray-500 mt-1 text-center">生成器与评分器对抗迭代<br/>自动发现最优评分标准</div>
 
 </div>
 </div>
