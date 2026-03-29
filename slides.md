@@ -2,7 +2,7 @@
 theme: apple-basic
 title: "CDP 翻译模型训练 — 项目更新"
 info: |
-  CDP 项目翻译模型微调二期成果更新
+  CDP 项目翻译模型微调优化成果更新
 colorSchema: light
 drawings:
   persist: false
@@ -12,36 +12,39 @@ mdc: true
 
 <CoverSlide
   title="CDP 翻译模型训练"
-  subtitle="二期优化成果更新"
+  subtitle="项目优化成果更新"
   tagline="问题分析 · 优化方案 · 效果验证 · 下一步"
 />
 
 ---
 
-# 二期优化 — 问题分析与技术方案
+# CDP 翻译模型优化 — 问题分析与技术方案
 
 <ProcessChevrons
   :steps="[
-    { label: '阶段一 ✅', sublabel: 'PoC 验证', color: '#16a34a' },
-    { label: '阶段二 🔄', sublabel: '持续微调 + 上生产', color: '#0284c7' },
-    { label: '阶段三', sublabel: '扩展到更多场景', color: '#94a3b8' }
+    { label: '一期 ✅', sublabel: 'Qwen 8B 微调 PoC\n准确度接近 GPT-4o', color: '#16a34a' },
+    { label: '优化阶段 🔄', sublabel: '翻译自然度优化\n+ 推理上生产', color: '#0284c7' },
+    { label: '下一阶段', sublabel: '扩展到更多场景', color: '#94a3b8' }
   ]"
 />
 
 <div class="grid grid-cols-[1fr_1fr] gap-4 mt-2">
 <div class="text-sm">
 
-### 一期发现的问题
+### 一期完成情况
 
-一期 Qwen 8B 微调后**准确度接近 GPT-4o**，但业务实际使用发现**翻译有明显机器痕迹**：专词机械复制（如 *interproximal space allocation*）、语义重复、句式不自然
+基于 Qwen 8B 完成 SFT + GRPO 微调，翻译准确度接近 GPT-4o，验证了自有模型替代商业 API 的技术可行性与成本优势
+
+### 业务反馈
+
+准确度达标，但**翻译有明显机器痕迹** — 专词机械复制、语义重复、句式不自然
 
 **根因：** 传统指标（BLEU / BERT score）衡量"用了什么词"而非"是否自然"；小样本下过拟合
 
-### 技术方案要点
+### 关键技术选型
 
 - **评分模型：** Nova 2 Lite（vs Claude 4.5 Sonnet 效果无差异，成本更低）
-- **训练配置：** Qwen 8B / GRPO / 2×g6e.48xlarge / ~14h
-- AWS 团队主导方案设计与训练平台搭建
+- **训练：** Qwen 8B / GRPO / 2×g6e.48xlarge / ~14h
 
 </div>
 <div class="flex flex-col items-center">
@@ -81,11 +84,11 @@ mdc: true
   leftColor="#ef4444"
   rightColor="#16a34a"
   :leftItems="[
-    { text: 'interproximal space allocation was reserved distal to the upper laterals（机械专词、缺主语）' },
+    { text: '专词机械复制、缺主语' },
     { text: '语义重复、用词不符合临床习惯' }
   ]"
   :rightItems="[
-    { text: 'a space is reserved distally on the upper laterals（自然表达，专词不再机械复制）' },
+    { text: '自然表达，专词不再机械复制' },
     { text: '句式简洁清晰，用词符合临床惯例' }
   ]"
 />
