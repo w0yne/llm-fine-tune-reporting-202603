@@ -1,0 +1,13 @@
+{
+  "name": "llm-fine-tune-reporting-202603",
+  "private": false,
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build --base /llm-fine-tune-reporting-202603/",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^51.0.0",
+    "@slidev/theme-apple-basic": "latest"
+  }
+}
