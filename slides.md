@@ -120,14 +120,17 @@ mdc: true
 <SlideHeading subtitle="责任矩阵与时间节点" />
 
 <DataTable
-  :headers="['事项', '负责方', '时间']"
-  :rows="[
-    ['与业务部门评估训练结果', 'TAM + 客户', '2 周内'],
-    ['评估 Qwen 3.5 替代 Nova', '客户', '1 月内'],
-    ['模型部署至代理 + 压力测试', 'TAM + 客户', '评估完成后'],
-    ['LiteLLM 代理联合测试', 'TAM + 客户', '部署完成后'],
-    ['专词映射灵活性优化', '待定', 'CDP 后'],
-    ['14B 模型效果与成本评估', '待定', 'CDP 后']
+  :columns="[
+    { key: 'item', label: '事项', width: '50%' },
+    { key: 'owner', label: '负责方', width: '25%' },
+    { key: 'time', label: '时间', width: '25%' }
   ]"
-  :columnWidths="['50%', '25%', '25%']"
+  :rows="[
+    { item: '与业务部门评估训练结果', owner: 'TAM + 客户', time: '2 周内' },
+    { item: '评估 Qwen 3.5 替代 Nova', owner: '客户', time: '1 月内' },
+    { item: '模型部署至代理 + 压力测试', owner: 'TAM + 客户', time: '评估完成后' },
+    { item: 'LiteLLM 代理联合测试', owner: 'TAM + 客户', time: '部署完成后' },
+    { item: '专词映射灵活性优化', owner: '待定', time: 'CDP 后' },
+    { item: '14B 模型效果与成本评估', owner: '待定', time: 'CDP 后' }
+  ]"
 />
