@@ -1,9 +1,8 @@
 ---
 theme: apple-basic
-title: "LLM Translation Fine-Tuning — CDP Project Update"
+title: "CDP 翻译模型训练 — 项目更新"
 info: |
-  CDP project update on LLM translation model fine-tuning
-  Phase 1 review and Phase 2 results
+  CDP 项目翻译模型微调一期回顾与二期成果
 colorSchema: light
 drawings:
   persist: false
@@ -12,146 +11,118 @@ mdc: true
 ---
 
 <CoverSlide
-  title="LLM Translation Fine-Tuning"
-  subtitle="CDP Project Update — 2026.03"
-  tagline="Phase 1 Review · Phase 2 Results · Next Steps"
+  title="CDP 翻译模型训练"
+  subtitle="一期回顾与二期成果"
+  tagline="项目进展 · 优化结果 · 后续计划"
 />
 
 ---
 
-# Phase 1 Review & Phase 2 Focus
+# 项目进展与核心发现
 
-<SlideHeading subtitle="From accuracy validation to natural fluency" />
+<SlideHeading subtitle="一期验证完成 → 二期聚焦翻译自然度" />
 
 <ProcessChevrons
   :steps="[
-    { label: 'Phase 1 ✅', description: 'Translation model\nfine-tune PoC', color: '#16a34a' },
-    { label: 'Phase 2 🔄', description: 'Production deployment\n+ continuous tuning', color: '#0284c7' },
-    { label: 'Phase 3', description: 'Expand to other\nbusiness scenarios', color: '#94a3b8' }
+    { label: '阶段一 ✅', sublabel: '翻译模型微调 PoC', color: '#16a34a' },
+    { label: '阶段二 🔄', sublabel: '推理上生产 + 持续微调', color: '#0284c7' },
+    { label: '阶段三', sublabel: '扩展到其他业务场景', color: '#94a3b8' }
   ]"
 />
 
-<div class="grid grid-cols-2 gap-8 mt-6">
-<div>
+<div class="mt-6"></div>
 
-### Phase 1 Results
-
-- **Qwen 8B** fine-tuned, accuracy approaching GPT-4o
-- Technical validation: **SFT + GRPO** training pipeline
-- Cost advantage: self-hosted model vs GPT-4o API
-
-</div>
-<div>
-
-### Business Feedback: Machine Translation Artifacts
-
-<div class="text-red-600 font-semibold mb-2">Translation lacks natural fluency</div>
-
-- Mechanical term copying — clinical terminology not idiomatic
-- Semantic redundancy, unnatural syntax, imprecise word choice
-
-**Root cause:** Traditional metrics (BLEU, BERT score) only measure lexical matching, not naturalness; overfitting on small sample
-
-<div class="text-blue-600 font-semibold mt-3">→ Phase 2 goal: Solve humanization problem</div>
-
-</div>
-</div>
+<InsightSlide
+  label="一期核心发现"
+  insight="Qwen 8B 微调后翻译准确度接近 GPT-4o，<br/>但业务部门反馈：<b>翻译有明显的机器翻译痕迹</b>"
+  soWhat="传统指标（BLEU, BERT score）只能衡量词汇匹配，无法衡量自然度。<br/>小样本下出现过拟合 → <b>二期目标：解决模型拟人化问题</b>"
+  highlightColor="#dc2626"
+/>
 
 ---
 
-# Phase 2 Solution & Key Results
+# 二期优化结果
 
-<SlideHeading subtitle="Teacher-Student architecture with adversarial prompt optimization" />
+<SlideHeading subtitle="Teacher-Student 架构 + 生成对抗提示词优化（TAM 创新，文献未见类似方案）" />
 
-<div class="grid grid-cols-2 gap-8">
-<div>
+<StatHighlight
+  :stats="[
+    { value: '+2.1%', label: '翻译评分提升\n8.93 → 9.12', color: '#0284c7' },
+    { value: '+164%', label: '优秀翻译增幅\n93-100分：14→37条', color: '#16a34a' },
+    { value: '91.1%', label: '业务问题解决率\n56个问题解决51个', color: '#d97706' }
+  ]"
+/>
 
-### Technical Approach
+<div class="mt-4"></div>
 
-- **Teacher-Student** architecture + **LLM as Judge**
-- TAM innovation: **Adversarial prompt optimization**
-  - Auto-discovers optimal scoring criteria
-  - Novel approach — no similar method found in literature
-- Scoring model: **Nova 2 Lite**
-  - No significant difference vs Claude 4.5 Sonnet
-  - Lower cost selected
-- Training: Qwen 8B / GRPO / 2×g6e.48x / ~14h
-- Training platform migrated us-west-2 → us-east-2 (GPU capacity)
+<HorizontalBarChart
+  :bars="[
+    { label: '优化前', value: '8.93', width: 89.3, color: '#94a3b8' },
+    { label: '简洁提示词', value: '9.11', width: 91.1, color: '#0284c7' },
+    { label: '详细提示词', value: '9.12', width: 91.2, color: '#2563eb', highlight: true },
+    { label: 'GPT-4o', value: '9.77', width: 97.7, color: '#16a34a', highlight: true }
+  ]"
+  :labelWidth="100"
+  :barHeight="26"
+/>
 
-</div>
-<div>
-
-### Key Results (200 test samples)
-
-<div class="space-y-4">
-
-<div class="bg-blue-50 rounded-lg p-3">
-  <div class="text-blue-700 font-bold text-lg">Translation Score +2.1%</div>
-  <div class="text-sm">8.93 → 9.11-9.12 (+0.18-0.19)</div>
-  <div class="text-sm">Approaching GPT-4o level (9.77)</div>
-</div>
-
-<div class="bg-green-50 rounded-lg p-3">
-  <div class="text-green-700 font-bold text-lg">Excellent Translations +129-164%</div>
-  <div class="text-sm">93-100 score range: 14 → 32-37 samples</div>
-</div>
-
-<div class="bg-amber-50 rounded-lg p-3">
-  <div class="text-amber-700 font-bold text-lg">Business Issue Resolution 87.5-91.1%</div>
-  <div class="text-sm">56 tagged issues → 49-51 resolved</div>
-  <div class="text-sm">Concise prompt: 91.1% | Detailed prompt: 87.5%</div>
-</div>
-
-<div class="bg-gray-50 rounded-lg p-3">
-  <div class="text-gray-700 font-bold">Score Reliability ✓</div>
-  <div class="text-sm">LLM Judge vs human scoring: consistent trend</div>
-</div>
-
-</div>
-
-</div>
-</div>
+<TChart
+  leftTitle="优化前"
+  rightTitle="优化后"
+  leftColor="#ef4444"
+  rightColor="#16a34a"
+  :leftItems="[
+    { text: '专词机械复制（interproximal space allocation）' },
+    { text: '语义重复（based on + as a standard 同时出现）' },
+    { text: '句式不自然 — 缺主语、指代不清晰' },
+    { text: '用词精准度不足（bite will be very heavy）' }
+  ]"
+  :rightItems="[
+    { text: '不再机械使用专词，表达自然' },
+    { text: '语义简洁、无冗余' },
+    { text: '句式清晰、指代明确' },
+    { text: '用词符合临床习惯（heavy occlusion）' }
+  ]"
+/>
 
 ---
 
-# Next Steps
+# 后续计划
 
-<SlideHeading subtitle="Phased plan from validation to production to expansion" />
+<SlideHeading subtitle="从验证到生产到扩展" />
 
-<div class="grid grid-cols-3 gap-6 mt-4">
+<CardGrid :columns="3">
+  <SummaryCard
+    number="1"
+    title="近期（1-2 周）"
+    description="与业务部门评估训练结果，确认数值提升；模型部署至 LiteLLM 代理 + 压力测试"
+    color="#0284c7"
+  />
+  <SummaryCard
+    number="2"
+    title="中期（1 个月内）"
+    description="评估 Qwen 3.5 替代 Nova 降低评分成本；LiteLLM 代理联合测试，解决国内外访问"
+    color="#7c3aed"
+  />
+  <SummaryCard
+    number="3"
+    title="CDP 后续"
+    description="专词映射灵活性优化；14B 模型效果与成本评估；扩展到其他业务场景（阶段三目标）"
+    color="#64748b"
+  />
+</CardGrid>
 
-<div class="border-l-4 border-blue-500 pl-4">
+<div class="mt-8"></div>
 
-### Near-term (1-2 weeks)
-
-- Evaluate current results with business team — confirm score improvements
-- Deploy model to **LiteLLM proxy** + stress test
-
-</div>
-
-<div class="border-l-4 border-indigo-500 pl-4">
-
-### Mid-term (1 month)
-
-- Evaluate **Qwen 3.5** to replace Nova — reduce scoring cost
-- **LiteLLM** proxy joint testing (solve domestic/international access)
-
-</div>
-
-<div class="border-l-4 border-gray-400 pl-4">
-
-### Post-CDP
-
-- Specialized term mapping flexibility optimization
-- **14B model** evaluation — performance vs cost
-- Expand to other business scenarios (Phase 3 target)
-
-</div>
-
-</div>
-
-<div class="mt-8 text-center text-gray-500 text-sm">
-
-AWS Enterprise Support Team · CDP Project · 2026-03
-
-</div>
+<DataTable
+  :headers="['事项', '负责方', '时间']"
+  :rows="[
+    ['与业务部门评估训练结果', 'TAM + 客户', '2 周内'],
+    ['评估 Qwen 3.5 替代 Nova', '客户', '1 月内'],
+    ['模型部署至代理 + 压力测试', 'TAM + 客户', '评估完成后'],
+    ['LiteLLM 代理联合测试', 'TAM + 客户', '部署完成后'],
+    ['专词映射灵活性优化', '待定', 'CDP 后'],
+    ['14B 模型效果与成本评估', '待定', 'CDP 后']
+  ]"
+  :columnWidths="['50%', '25%', '25%']"
+/>
