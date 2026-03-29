@@ -68,7 +68,7 @@ mdc: true
 
 # 效果验证与下一步
 
-<div class="grid grid-cols-[1fr_1fr] gap-6 text-sm">
+<div class="grid grid-cols-[3fr_2fr] gap-6 text-xs">
 <div>
 
 ### 优化效果
@@ -81,12 +81,12 @@ mdc: true
   leftColor="#ef4444"
   rightColor="#16a34a"
   :leftItems="[
-    { text: '专词机械复制、缺主语' },
-    { text: '语义重复、用词不符合临床习惯' }
+    { text: '专词机械复制、缺主语\ninterproximal space allocation was reserved distal to the upper laterals' },
+    { text: '用词不符合临床习惯\nbite will be very heavy' }
   ]"
   :rightItems="[
-    { text: '自然表达，专词不再机械复制' },
-    { text: '句式简洁清晰，用词符合临床惯例' }
+    { text: '自然表达，专词不再机械复制\na space is reserved distally on the upper laterals' },
+    { text: '用词符合临床惯例\nheavy occlusion' }
   ]"
 />
 
@@ -95,16 +95,12 @@ mdc: true
 </div>
 <div>
 
-### 模型代理部署（LiteLLM）
-
-客户主要服务在美洲（可用 Claude），国内需 VPN — 已完成 LiteLLM 代理部署：测试账号部署完成、Admin access 已开通、AWS Key 配置测试通过，待联合测试
-
 ### 下一步
 
 <CardGrid :columns="1">
   <SummaryCard number="1" title="业务验证" description="与业务部门联合评估，确认翻译质量提升" color="#0284c7" />
-  <SummaryCard number="2" title="模型上线" description="LiteLLM 代理联合测试 + 压力测试" color="#7c3aed" />
-  <SummaryCard number="3" title="持续优化" description="更低成本评分模型；14B 模型；更多场景" color="#64748b" />
+  <SummaryCard number="2" title="模型上线" description="LiteLLM 代理联合测试 + 压力测试，完成生产部署" color="#7c3aed" />
+  <SummaryCard number="3" title="持续优化" description="更低成本评分模型；14B 模型；扩展更多场景" color="#64748b" />
 </CardGrid>
 
 </div>
