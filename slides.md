@@ -81,12 +81,16 @@ mdc: true
   leftColor="#ef4444"
   rightColor="#16a34a"
   :leftItems="[
-    { text: '专词机械复制、缺主语\ninterproximal space allocation was reserved distal to the upper laterals' },
-    { text: '用词不符合临床习惯\nbite will be very heavy' }
+    { text: '专词机械复制、缺主语' },
+    { text: '→ interproximal space allocation was reserved distal to the upper laterals' },
+    { text: '用词不符合临床习惯' },
+    { text: '→ bite will be very heavy' }
   ]"
   :rightItems="[
-    { text: '自然表达，专词不再机械复制\na space is reserved distally on the upper laterals' },
-    { text: '用词符合临床惯例\nheavy occlusion' }
+    { text: '自然表达，专词不再机械复制' },
+    { text: '→ a space is reserved distally on the upper laterals' },
+    { text: '用词符合临床惯例' },
+    { text: '→ heavy occlusion' }
   ]"
 />
 
