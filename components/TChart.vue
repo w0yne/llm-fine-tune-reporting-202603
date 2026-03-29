@@ -7,77 +7,71 @@ defineProps({
   leftItems: {
     type: Array,
     required: true
-    // Each: { text: string }
   },
   rightItems: {
     type: Array,
     required: true
-    // Each: { text: string, highlight?: string }
   }
 })
 </script>
 
 <template>
   <div class="t-chart">
-    <div class="left-column">
-      <div class="column-title" :style="{ color: leftColor }">{{ leftTitle }}</div>
+    <!-- Header row -->
+    <div class="column-title" :style="{ color: leftColor }">{{ leftTitle }}</div>
+    <div class="divider-header"></div>
+    <div class="column-title" :style="{ color: rightColor }">{{ rightTitle }}</div>
+
+    <!-- Paired rows -->
+    <template v-for="(item, idx) in leftItems" :key="idx">
       <div
-        v-for="(item, idx) in leftItems"
-        :key="idx"
         class="item left-item"
         :style="{ borderLeftColor: `${leftColor}60` }"
       >
         {{ item.text }}
       </div>
-    </div>
-
-    <div class="divider">
-      <span>→</span>
-    </div>
-
-    <div class="right-column">
-      <div class="column-title" :style="{ color: rightColor }">{{ rightTitle }}</div>
+      <div class="divider-cell">
+        <span>→</span>
+      </div>
       <div
-        v-for="(item, idx) in rightItems"
-        :key="idx"
         class="item right-item"
         :style="{ borderLeftColor: rightColor }"
       >
-        <span class="item-text">{{ item.text }}</span>
-        <span v-if="item.highlight" class="item-highlight" :style="{ color: rightColor }">{{ item.highlight }}</span>
+        <span class="item-text">{{ rightItems[idx]?.text }}</span>
+        <span v-if="rightItems[idx]?.highlight" class="item-highlight" :style="{ color: rightColor }">{{ rightItems[idx].highlight }}</span>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
 <style scoped>
 .t-chart {
   display: grid;
-  grid-template-columns: 1fr 30px 1fr;
+  grid-template-columns: 1fr 24px 1fr;
   gap: 0;
-  margin-top: 1.5rem;
-  align-items: start;
-}
-
-.left-column,
-.right-column {
-  display: flex;
-  flex-direction: column;
+  margin-top: 1rem;
+  align-items: stretch;
 }
 
 .column-title {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
   font-weight: 600;
 }
 
-.item {
-  padding: 0.7rem 1rem;
-  border-left: 3px solid;
+.divider-header {
   margin-bottom: 0.5rem;
-  font-size: 0.8rem;
+}
+
+.item {
+  padding: 0.5rem 0.8rem;
+  border-left: 3px solid;
+  margin-bottom: 0.4rem;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
 }
 
 .left-item {
@@ -92,15 +86,15 @@ defineProps({
 
 .item-highlight {
   margin-left: 0.3rem;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
 }
 
-.divider {
+.divider-cell {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #ccc;
+  margin-bottom: 0.4rem;
 }
 </style>
