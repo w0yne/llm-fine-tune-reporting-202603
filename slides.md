@@ -30,20 +30,23 @@ mdc: true
   ]"
 />
 
-<div class="mt-6"></div>
+<div class="mt-4 px-8 py-4 bg-gray-50 rounded-lg text-sm">
 
-<InsightSlide
-  label="一期核心发现"
-  insight="Qwen 8B 微调后翻译准确度接近 GPT-4o，<br/>但业务部门反馈：<b>翻译有明显的机器翻译痕迹</b>"
-  soWhat="传统指标（BLEU, BERT score）只能衡量词汇匹配，无法衡量自然度。<br/>小样本下出现过拟合 → <b>二期目标：解决模型拟人化问题</b>"
-  highlightColor="#dc2626"
-/>
+**一期成果：** Qwen 8B 微调后翻译准确度接近 GPT-4o，技术路线（SFT + GRPO）验证通过，成本优势明确
+
+**业务反馈：** 翻译有明显的机器翻译痕迹 — 专词机械复制、语义重复、句式不自然、用词不符合临床习惯
+
+**根因分析：** 传统指标（BLEU, BERT score）只能衡量词汇匹配，无法衡量翻译自然度；小样本下出现过拟合
+
+<div class="text-blue-600 font-semibold mt-2">→ 二期目标：解决模型拟人化问题，让翻译像人一样自然</div>
+
+</div>
 
 ---
 
 # 二期优化结果
 
-<SlideHeading subtitle="Teacher-Student 架构 + 生成对抗提示词优化（TAM 创新，文献未见类似方案）" />
+<SlideHeading subtitle="Teacher-Student 架构 + LLM as Judge + 生成对抗提示词优化" />
 
 <StatHighlight
   :stats="[
@@ -53,7 +56,7 @@ mdc: true
   ]"
 />
 
-<div class="mt-4"></div>
+<div class="mt-2"></div>
 
 <HorizontalBarChart
   :bars="[
@@ -63,7 +66,7 @@ mdc: true
     { label: 'GPT-4o', value: '9.77', width: 97.7, color: '#16a34a', highlight: true }
   ]"
   :labelWidth="100"
-  :barHeight="26"
+  :barHeight="24"
 />
 
 <TChart
@@ -73,21 +76,19 @@ mdc: true
   rightColor="#16a34a"
   :leftItems="[
     { text: '专词机械复制（interproximal space allocation）' },
-    { text: '语义重复（based on + as a standard 同时出现）' },
-    { text: '句式不自然 — 缺主语、指代不清晰' },
-    { text: '用词精准度不足（bite will be very heavy）' }
+    { text: '语义重复、缺主语、指代不清晰' },
+    { text: '用词不符合临床习惯' }
   ]"
   :rightItems="[
     { text: '不再机械使用专词，表达自然' },
-    { text: '语义简洁、无冗余' },
-    { text: '句式清晰、指代明确' },
+    { text: '句式简洁清晰、指代明确' },
     { text: '用词符合临床习惯（heavy occlusion）' }
   ]"
 />
 
 ---
 
-# 后续计划
+# 后续计划 — 时间线
 
 <SlideHeading subtitle="从验证到生产到扩展" />
 
@@ -112,7 +113,11 @@ mdc: true
   />
 </CardGrid>
 
-<div class="mt-8"></div>
+---
+
+# 后续计划 — 详细分工
+
+<SlideHeading subtitle="责任矩阵与时间节点" />
 
 <DataTable
   :headers="['事项', '负责方', '时间']"
